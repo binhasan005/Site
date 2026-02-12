@@ -3,46 +3,48 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Bin Hasan - Saudi Real Estate Guides & Investment Tips">
 <title>Bin Hasan</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Open Sans',sans-serif;scroll-behavior:smooth;}
-body{background:#000;color:#7E3D87;}
-a{text-decoration:none;color:#7E3D87;transition:.3s;} 
-a:hover{color:#A152B1;}
-img{max-width:100%;display:block;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Montserrat',sans-serif;background:#000;color:#7E3D87;overflow-x:hidden;scroll-behavior:smooth;}
+
+/* Cursor */
+.cursor{width:18px;height:18px;border:2px solid #7E3D87;border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:0.1s;}
+
+/* Loader */
+.loader{position:fixed;inset:0;background:#000;display:flex;justify-content:center;align-items:center;z-index:9999;}
+.loader img{width:160px;opacity:0;transform:scale(0.5);}
 
 /* Header */
 header{
-  position:sticky;top:0;width:100%;z-index:1000;
-  display:flex;flex-direction:column;align-items:center;
-  backdrop-filter:blur(6px);background:rgba(0,0,0,0.6);padding:20px;text-align:center;
+position:fixed;top:0;width:100%;display:flex;justify-content:space-between;align-items:center;padding:20px 60px;background:rgba(0,0,0,0.4);backdrop-filter:blur(20px);border-bottom:1px solid rgba(126,61,135,0.2);z-index:1000;
 }
-header img{width:120px;margin-bottom:10px;}
-header h1{font-family:'Montserrat',sans-serif;font-weight:700;font-size:2rem;text-shadow:1px 1px 6px rgba(0,0,0,0.7);}
-header p{font-size:1rem;color:#7E3D87;text-shadow:1px 1px 5px rgba(0,0,0,0.6);}
-nav{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-top:10px;}
-nav a{font-weight:600;padding:5px 10px;border-radius:5px;}
-nav a:hover{background:rgba(126,61,135,0.2);}
+.brand{display:flex;align-items:center;gap:15px}
+.brand img{width:80px}
+.brand h1{font-family:'Playfair Display',serif;font-size:1.8rem;}
+.icons{display:flex;gap:25px}
+.icons a{color:#7E3D87;font-size:22px;transition:0.4s;}
+.icons a:hover{transform:scale(1.2);color:#A152B1;}
 
-/* Hero & Jeddah Slideshow */
-.hero, .jeddah-section{position:relative;height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;}
-.hero::before, .jeddah-section::before{
-  content:"";position:absolute;top:0;left:0;right:0;bottom:0;
-  background:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5));z-index:1;
-}
-.slides{position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;overflow:hidden;}
-.slides img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 2s ease-in-out, transform 5s ease;}
+/* Sections */
+section{height:100vh;display:flex;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden;padding:0 20px;}
+.overlay{position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7));z-index:1;}
+.slides{position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;}
+.slides img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.5s ease, transform 6s ease;}
 .slides img.active{opacity:1;transform:scale(1.05);}
-.hero .content, .jeddah-section .content{position:relative;z-index:2;padding:0 20px;}
-.hero h2, .jeddah-section h2{font-size:2.5rem;font-family:'Montserrat',sans-serif;margin-bottom:15px;text-shadow:2px 2px 8px rgba(0,0,0,0.7);}
-.hero p, .jeddah-section p{max-width:650px;margin:0 auto 25px;font-size:1.2rem;text-shadow:1px 1px 6px rgba(0,0,0,0.7);}
-.hero .btn, .jeddah-section .btn{background-color:#A152B1;color:#000;font-weight:600;padding:12px 30px;border-radius:5px;transition:.3s;}
-.hero .btn:hover, .jeddah-section .btn:hover{background-color:#C17BC3;}
+.content{position:relative;z-index:2;max-width:800px;}
+h2{font-family:'Playfair Display',serif;font-size:3rem;margin-bottom:20px;}
+p{font-size:1.2rem;}
+.btn{display:inline-block;padding:15px 40px;border:1px solid #7E3D87;margin-top:25px;color:#7E3D87;transition:0.4s;text-decoration:none;}
+.btn:hover{background:#7E3D87;color:#000;box-shadow:0 0 30px #7E3D87;transform:translateY(-4px);}
 
 /* Videos/Instagram Reels Section */
-.videos{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;padding:60px 20px;}
+.videos{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;padding:60px 20px;background:#111;}
 .video-item{border-radius:10px;overflow:hidden;box-shadow:0 5px 15px rgba(0,0,0,0.5);}
 .video-item iframe{width:100%;height:300px;}
 .video-item p{color:#A152B1;text-align:center;margin-top:10px;font-weight:600;}
@@ -55,118 +57,249 @@ nav a:hover{background:rgba(126,61,135,0.2);}
 .blog-item p{font-size:0.95rem;}
 
 /* Contact Section */
-.contact{padding:60px 20px;text-align:center;}
-.contact form{display:flex;flex-direction:column;gap:15px;max-width:500px;margin:auto;}
-.contact input,.contact textarea{padding:12px;border:1px solid #7E3D87;border-radius:5px;background:#111;color:#7E3D87;}
-.contact button{padding:12px;background:#A152B1;color:#000;font-weight:600;border-radius:5px;cursor:pointer;transition:.3s;}
-.contact button:hover{background:#C17BC3;}
-.contact p a{color:#A152B1;font-weight:600;}
+.contact{padding:60px 20px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px;}
+.contact form{display:flex;flex-direction:column;gap:15px;max-width:500px;width:100%;}
+.contact input,.contact textarea{padding:12px;border:1px solid #7E3D87;border-radius:5px;background:#111;color:#7E3D87;width:100%;}
+.contact button{padding:12px;background:#7E3D87;color:#000;font-weight:600;border-radius:5px;cursor:pointer;transition:.3s;width:100%;}
+.contact button:hover{background:#A152B1;}
+.contact p a{color:#A152B1;font-weight:600;display:block;margin-top:10px;}
 
 /* Footer */
-footer{background:#000;color:#7E3D87;text-align:center;padding:25px 20px;}
+footer{padding:40px;text-align:center;border-top:1px solid rgba(126,61,135,0.2);color:#7E3D87;}
 footer a{color:#A152B1;font-weight:600;}
 
-/* Responsive */
-@media(max-width:768px){.hero h2, .jeddah-section h2{font-size:1.8rem;}}
+/* AI Chatbot */
+#ai-chatbot-btn{
+position:fixed;bottom:25px;right:25px;width:60px;height:60px;background:#7E3D87;color:#000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;cursor:pointer;z-index:9999;box-shadow:0 0 20px #7E3D87;transition:.3s;}
+#ai-chatbot-btn:hover{transform:scale(1.1);background:#A152B1;}
+#ai-chatbot-box{position:fixed;bottom:100px;right:25px;width:320px;height:400px;background:linear-gradient(145deg,#7E3D87,#A152B1);border-radius:20px;box-shadow:0 0 40px #7E3D87;display:none;flex-direction:column;z-index:9999;}
+#ai-chatbot-header{padding:15px;color:#000;font-weight:700;font-size:18px;text-align:center;border-bottom:1px solid rgba(0,0,0,0.2);border-radius:20px 20px 0 0;}
+#ai-chatbot-messages{flex:1;padding:10px;overflow-y:auto;}
+.ai-msg{background:rgba(0,0,0,0.1);padding:8px 12px;margin:8px 0;border-radius:12px;color:#fff;font-size:14px;}
+.user-msg{background:rgba(0,0,0,0.2);padding:8px 12px;margin:8px 0;border-radius:12px;color:#fff;font-size:14px;text-align:right;}
+.faq-msg{background:rgba(126,61,135,0.8);color:#fff;padding:8px 12px;margin:8px 0;border-radius:12px;font-size:14px;} /* FAQ color */
+#ai-chatbot-input{display:flex;padding:10px;border-top:1px solid rgba(0,0,0,0.2);}
+#ai-chatbot-input input{flex:1;padding:10px;border-radius:15px;border:none;}
+#ai-chatbot-input button{padding:10px 15px;margin-left:10px;background:#000;color:#7E3D87;border:none;border-radius:15px;cursor:pointer;}
+#ai-chatbot-input button:hover{background:#A152B1;}
+
+/* Mobile ripple effect */
+@media(max-width:768px){
+  .cursor{display:none;}
+  body{position:relative;}
+  .ripple{position:absolute;border-radius:50%;background:rgba(126,61,135,0.5);width:20px;height:20px;transform:scale(0);opacity:0.6;pointer-events:none;transition: transform 0.6s linear, opacity 0.6s linear;}
+  .contact{gap:15px;padding:40px 15px;}
+}
+@media(max-width:768px){h2{font-size:2rem}}
 </style>
 </head>
 <body>
 
-<!-- Header -->
+<div class="cursor"></div>
+<div class="loader">
+<img src="https://i.imgur.com/SzHFDmO.png">
+</div>
+
 <header>
-  <img src="https://i.imgur.com/SzHFDmO.png" alt="Logo" style="width:120px;">
-  <h1>Bin Hasan</h1>
-  <p>Simplifying Saudi Real Estate for Investors</p>
-  <nav>
-    <a href="#jeddah">About</a>
-    <a href="#reels">Reels</a>
-    <a href="#blog">Guides</a>
-    <a href="#contact">Contact</a>
-  </nav>
+<div class="brand">
+<img src="https://i.imgur.com/SzHFDmO.png">
+<h1>Bin Hasan</h1>
+</div>
+<div class="icons">
+<a href="https://www.instagram.com/realestate_with_binhasan/" target="_blank"><i class="fab fa-instagram"></i></a>
+<a href="mailto:contact@binhasan.com"><i class="fas fa-envelope"></i></a>
+</div>
 </header>
 
-<!-- Hero Slideshow (Riyadh) -->
-<section class="hero" id="hero">
-  <div class="slides">
-    <img src="https://images.unsplash.com/photo-1663900108404-a05e8bf82cda?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0" class="active" alt="Riyadh 1">
-    <img src="https://images.unsplash.com/photo-1676055003135-489fda067670?q=80&w=1335&auto=format&fit=crop&ixlib=rb-4.1.0" alt="Riyadh 2">
-  </div>
-  <div class="content">
-    <h2>Learn, Invest & Grow in Saudi Real Estate</h2>
-    <p>Stay updated with property news, investment tips, and ROI insights from top Saudi cities.</p>
-    <a href="#contact" class="btn">Get in Touch</a>
-  </div>
+<section id="hero">
+<div class="slides">
+<img src="https://images.unsplash.com/photo-1663900108404-a05e8bf82cda?q=80&w=1374&auto=format&fit=crop" class="active">
+<img src="https://images.unsplash.com/photo-1676055003135-489fda067670?q=80&w=1335&auto=format&fit=crop">
+</div>
+<div class="overlay"></div>
+<div class="content">
+<h2>Learn, Invest & Grow in Saudi Real Estate</h2>
+<p>Stay updated with property news, investment tips, and ROI insights from top Saudi cities.</p>
+<a href="#jeddah" class="btn">Get in Touch</a>
+</div>
 </section>
 
-<!-- Jeddah Slideshow -->
 <section class="jeddah-section" id="jeddah">
-  <div class="slides">
-    <img src="https://images.unsplash.com/photo-1585085952480-811ff8859fa1?q=80&w=1335&auto=format&fit=crop&ixlib=rb-4.1.0" class="active" alt="Jeddah 1">
-    <img src="https://images.unsplash.com/photo-1674979724572-c0a0579bc9d0?q=80&w=1373&auto=format&fit=crop&ixlib=rb-4.1.0" alt="Jeddah 2">
-  </div>
-  <div class="content">
-    <h2>About Bin Hasan</h2>
-    <p>Bin Hasan guides investors in Saudi real estate, offering market insight, property strategies, and daily updates to help you succeed.</p>
-  </div>
+<div class="slides">
+<img src="https://images.unsplash.com/photo-1585085952480-811ff8859fa1?q=80&w=1335&auto=format&fit=crop" class="active">
+<img src="https://images.unsplash.com/photo-1674979724572-c0a0579bc9d0?q=80&w=1373&auto=format&fit=crop">
+</div>
+<div class="overlay"></div>
+<div class="content">
+<h2>About Bin Hasan</h2>
+<p>Bin Hasan guides investors in Saudi real estate, offering market insight, property strategies, and daily updates to help you succeed.</p>
+</div>
 </section>
 
-<!-- Instagram Reels Section -->
 <section class="videos" id="reels">
-  <h2 style="text-align:center;margin-bottom:40px;color:#A152B1;">Watch Latest Property Reels</h2>
-  <div class="video-item">
-    <iframe src="https://www.instagram.com/reel/REPLACE_WITH_LINK/embed" frameborder="0" allowfullscreen></iframe>
-    <p>Riyadh Downtown Investment Tips</p>
-  </div>
-  <div class="video-item">
-    <iframe src="https://www.instagram.com/reel/REPLACE_WITH_LINK/embed" frameborder="0" allowfullscreen></iframe>
-    <p>Jeddah Corniche Property Update</p>
-  </div>
+<h2 style="text-align:center;margin-bottom:40px;color:#A152B1;">Watch Latest Property Reels</h2>
+<div class="video-item">
+<iframe src="https://www.instagram.com/reel/REPLACE_WITH_LINK/embed" frameborder="0" allowfullscreen></iframe>
+<p>Riyadh Downtown Investment Tips</p>
+</div>
+<div class="video-item">
+<iframe src="https://www.instagram.com/reel/REPLACE_WITH_LINK/embed" frameborder="0" allowfullscreen></iframe>
+<p>Jeddah Corniche Property Update</p>
+</div>
 </section>
 
-<!-- Blog Section -->
 <section class="blog" id="blog">
-  <div class="blog-item">
-    <h3>How to Buy Freehold Property in Saudi Arabia</h3>
-    <p>Steps, regulations & tips for foreign investors in Saudi real estate.</p>
-  </div>
-  <div class="blog-item">
-    <h3>Top Rental Yields in Riyadh & Jeddah</h3>
-    <p>Rental income insights and best areas to invest in Saudi.</p>
-  </div>
+<div class="blog-item">
+<h3>How to Buy Freehold Property in Saudi Arabia</h3>
+<p>Steps, regulations & tips for foreign investors in Saudi real estate.</p>
+</div>
+<div class="blog-item">
+<h3>Top Rental Yields in Riyadh & Jeddah</h3>
+<p>Rental income insights and best areas to invest in Saudi.</p>
+</div>
 </section>
 
-<!-- Contact Section -->
-<section class="contact" id="contact">
+  <section class="contact" id="contact">
   <h2>Contact Bin Hasan</h2>
-  <form>
+
+  <form action="https://formsubmit.co/contact@binhasan.com" method="POST" class="contact-form">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_subject" value="New Website Contact Message!">
     <input type="text" name="name" placeholder="Your Name" required>
     <input type="email" name="email" placeholder="Your Email" required>
     <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
-    <button type="submit">Send Message</button>
+    <button type="submit" class="contact-btn">Send Message</button>
   </form>
-  <p>Or reach me via <a href="https://www.instagram.com/realestate_with_binhasan/" target="_blank">Instagram</a></p>
+
+<p>Or reach me via <a href="https://www.instagram.com/realestate_with_binhasan/" target="_blank">Instagram</a></p>
+<p>Or mail us at <a href="mailto:contact@binhasan.com">contact@binhasan.com</a></p>
 </section>
 
-<!-- Footer -->
 <footer>
-  &copy; 2026 Bin Hasan | All Rights Reserved
+&copy; 2026 Bin Hasan | All Rights Reserved
 </footer>
 
-<!-- Slideshow Script -->
-<script>
-const allSlideshows = [
-  document.querySelectorAll('.hero .slides img'),
-  document.querySelectorAll('.jeddah-section .slides img')
-];
+<!-- AI Chatbot -->
+<div id="ai-chatbot-btn"><i class="fas fa-robot"></i></div>
+<div id="ai-chatbot-box">
+<div id="ai-chatbot-header">AI Chatbot</div>
+<div id="ai-chatbot-messages"></div>
+<div id="ai-chatbot-input">
+<input type="text" id="chat-input" placeholder="Type your message...">
+<button id="send-btn">Send</button>
+</div>
+</div>
 
+<script>
+/* Cursor */
+const cursor=document.querySelector('.cursor');
+document.addEventListener('mousemove',e=>{
+cursor.style.left=e.clientX+'px';
+cursor.style.top=e.clientY+'px';
+});
+
+/* Loader Animation */
+gsap.to(".loader img",{opacity:1,scale:1,duration:1.5});
+gsap.to(".loader",{opacity:0,delay:2.5,duration:1,onComplete:()=>document.querySelector(".loader").style.display="none"});
+
+/* Slideshows */
+document.querySelectorAll('.slides').forEach(slideshow=>{
+let slides=slideshow.querySelectorAll('img');
+let index=0;
 setInterval(()=>{
-  allSlideshows.forEach(slideshow => {
-    let current = Array.from(slideshow).findIndex(img => img.classList.contains('active'));
-    slideshow[current].classList.remove('active');
-    current = (current+1) % slideshow.length;
-    slideshow[current].classList.add('active');
-  });
-}, 4000); // slides change every 4 seconds
+slides[index].classList.remove('active');
+index=(index+1)%slides.length;
+slides[index].classList.add('active');
+},4000);
+});
+
+/* Mobile ripple effect */
+document.addEventListener('touchstart', function(e){
+    if(window.innerWidth <= 768){
+        let ripple = document.createElement('div');
+        ripple.className = 'ripple';
+        ripple.style.left = e.touches[0].clientX + 'px';
+        ripple.style.top = e.touches[0].clientY + 'px';
+        document.body.appendChild(ripple);
+        ripple.offsetWidth;
+        ripple.style.transform = 'scale(6)';
+        ripple.style.opacity = '0';
+        ripple.addEventListener('transitionend', ()=>ripple.remove());
+    }
+});
+
+/* AI Chatbot Functionality */
+const aiBtn=document.getElementById('ai-chatbot-btn');
+const aiBox=document.getElementById('ai-chatbot-box');
+const chatInput=document.getElementById('chat-input');
+const sendBtn=document.getElementById('send-btn');
+const messages=document.getElementById('ai-chatbot-messages');
+
+const presetResponses={
+"What is Bin Hasan?":"Bin Hasan guides investors in Saudi real estate, offering market insight, property strategies, and daily updates.",
+"How can I stay updated with Saudi real estate?":"Follow Bin Hasan on Instagram to get daily market updates, investment tips, and property news.",
+"Can I invest in Saudi real estate?":"Yes, there are many opportunities depending on regulations and eligibility. Contact Bin Hasan for guidance.",
+"What cities do you cover?":"We cover major Saudi cities including Riyadh, Jeddah, and other growing markets.",
+"Do you provide property tips?":"Yes! Bin Hasan regularly shares investment tips, market insights, and real estate advice.",
+"How to contact Bin Hasan?":"You can contact Bin Hasan via Instagram or email at contact@binhasan.com.",
+"Investment tips":"Bin Hasan shares practical investment tips to help you maximize ROI in Saudi real estate.",
+"Market insights":"Get the latest Saudi property market insights by following Bin Hasan.",
+"Property trends":"Bin Hasan provides updates on current property trends across key Saudi cities.",
+"Real estate advice":"Receive expert real estate advice for buying, selling, or investing.",
+"General queries":"Please send your query and Bin Hasan will assist you."
+};
+
+// Add FAQs on open
+aiBtn.addEventListener('click',()=>{
+    aiBox.style.display=aiBox.style.display==='flex'?'none':'flex';
+    aiBox.style.flexDirection='column';
+    if(aiBox.style.display==='flex'){
+        messages.innerHTML=''; // clear previous
+        const faqs=[
+            "What is Bin Hasan?",
+            "How can I stay updated with Saudi real estate?",
+            "Can I invest in Saudi real estate?",
+            "Do you provide property tips?",
+            "How to contact Bin Hasan?",
+            "Investment tips",
+            "Market insights",
+            "Property trends",
+            "Real estate advice",
+            "General queries"
+        ];
+        faqs.forEach(f=>{
+            const div=document.createElement('div');
+            div.className='faq-msg';
+            div.textContent=f;
+            messages.appendChild(div);
+        });
+    }
+});
+
+function addMessage(msg,className){
+const div=document.createElement('div');
+div.className=className;
+div.textContent=msg;
+messages.appendChild(div);
+messages.scrollTop=messages.scrollHeight;
+}
+
+sendBtn.addEventListener('click',()=>{
+const userMsg=chatInput.value.trim();
+if(!userMsg) return;
+addMessage(userMsg,'user-msg');
+chatInput.value='';
+if(presetResponses[userMsg]){
+addMessage(presetResponses[userMsg],'ai-msg');
+}else{
+window.location.href=`mailto:contact@binhasan.com?subject=AI Chatbot Message&body=${encodeURIComponent(userMsg)}`;
+addMessage("Your message has been sent to Bin Hasan.","ai-msg");
+}
+});
+
+chatInput.addEventListener('keypress',function(e){
+if(e.key==='Enter'){sendBtn.click();}
+});
 </script>
 
 </body>
